@@ -1,0 +1,56 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock %}
+
+{% block title %}Todo list{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+
+    <h1 class="display-4"> list name... </h1>
+    <hr class="my-4">
+
+    {% if data: %}
+    <h3 class="display-4"> To do: </h3>
+    {% for row in data if row.done==False %}
+    <div class="todo-row">
+        <form method="GET" action="{{url_for('check_todo')}}">
+            <button class="btn btn-success btn-width" name="todo_id" value="{{row.id}}" type="submit">☐️</button>
+        </form>
+        <p>{{ row.name }}</p>
+        <form class="btn-delete-form" method="GET" action="{{url_for('delete_todo')}}">
+            <button class="btn btn-width" name="todo_id" value="{{row.id}}" type="submit">❌</button>
+        </form>
+        <hr>
+    </div>
+
+    {% endfor %}
+
+    {% else: %}
+    <h2 class="todo-row">No tasks...</h2>
+    {% endif %}
+    <div class="todo-row add-task-form">
+        {{ wtf.quick_form(form, novalidate=True) }}
+    </div>
+
+    <h3 class="display-4"> Done: </h3>
+    {% for row in data if row.done==True %}
+    <div class="todo-row">
+        <form method="GET" action="{{url_for('check_todo')}}">
+            <button class="btn btn-width" name="todo_id" value="{{row.id}}" type="submit">✔️</button>
+        </form>
+        <p class="todo-checked">{{ row.name }}</p>
+        <form class="btn-delete-form" method="GET" action="{{url_for('delete_todo')}}">
+            <button class="btn btn-width" name="todo_id" value="{{row.id}}" type="submit">❌</button>
+        </form>
+        <hr>
+    </div>
+
+    {% endfor %}
+</div>
+{% endblock %}

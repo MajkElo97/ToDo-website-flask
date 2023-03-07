@@ -1,0 +1,44 @@
+
+body {
+background-color: #333;
+color: white;
+}
+
+a {
+    color: #ffc107;
+}
+label{
+      display: None;
+    }
+p{
+    margin: 0px 20px;
+}
+
+.todo-row form, p{
+    display: inline-block;
+}
+.todo-row{
+    margin: 20px 20px;
+}
+
+.todo-input{
+    color:black;
+}
+
+.btn-delete-form{
+  position: relative;
+  float: right;
+}
+
+.todo-checked{
+  text-decoration: line-through;
+  color:  #8e9299;
+}
+
+.add-task-form form{
+display: block;
+}
+
+.btn-width{
+width:50px;
+}
